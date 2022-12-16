@@ -23,14 +23,14 @@ use Path::Tiny;
     return $self;
    }
 
-  while ((my $next = substr( $self->{ input }, 0, 1, '' )) ne ']') {
-    die "Illegal input $next . $self->{ input }" unless ($next eq '[' || $next eq ',');
-    if ($self->{ input } =~ s/^(\d+)//) {
+  while ((my $next = substr( $input, 0, 1, '' )) ne ']') {
+    die "Illegal input $next . $input" unless ($next eq '[' || $next eq ',');
+    if ($input =~ s/^(\d+)//) {
       push @{ $self->{ vals } }, $1;
      }
-    elsif (substr( $self->{ input }, 0, 1 ) ne ']') {
-      my $list = Packet->new( $self->{ input } );
-      $self->{ input } = $list->{ input };
+    elsif (substr( $input, 0, 1 ) ne ']') {
+      my $list = Packet->new( $input );
+      $input = $list->{ input };
       push @{ $self->{ vals } }, $list;
      }
    }
